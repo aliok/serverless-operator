@@ -398,13 +398,13 @@ spec:
                     - name: IMAGE_webhook
                       value: registry.svc.ci.openshift.org/openshift/knative-v0.12.1:knative-serving-webhook
                     - name: IMAGE_eventing-controller
-                      value: gcr.io/knative-nightly/knative.dev/eventing/cmd/controller@sha256:4c2c31c9224b967f5e65765fd6e2660ddf91341c8a2d3975f33c674cb0cdc228
+                      value: registry.svc.ci.openshift.org/openshift/knative-v0.13.0:knative-eventing-controller
                     - name: IMAGE_eventing-webhook
-                      value: gcr.io/knative-nightly/knative.dev/eventing/cmd/webhook@sha256:29b683797fea98959c9edc1c5278aa2be9b1b7a681bada57093cd32bbb2146b1
+                      value: registry.svc.ci.openshift.org/openshift/knative-v0.13.0:knative-eventing-webhook
                     - name: IMAGE_imc-controller
-                      value: gcr.io/knative-nightly/knative.dev/eventing/cmd/in_memory/channel_controller@sha256:2ed0d0a70b0f57ae896a938959e3873fd543220df9ac0340169fedca0e9109df
+                      value: registry.svc.ci.openshift.org/openshift/knative-v0.13.0:knative-eventing-channel-controller
                     - name: IMAGE_imc-dispatcher
-                      value: gcr.io/knative-nightly/knative.dev/eventing/cmd/in_memory/channel_dispatcher@sha256:a266f7a9d49fd6544f32d2593dc5588bb48a03a939b052ed98499e62430b7229
+                      value: registry.svc.ci.openshift.org/openshift/knative-v0.13.0:knative-eventing-channel-dispatcher
       - name: knative-openshift-ingress
         spec:
           replicas: 1
@@ -529,13 +529,13 @@ spec:
     - name: IMAGE_webhook
       image: registry.svc.ci.openshift.org/openshift/knative-v0.12.1:knative-serving-webhook
     - name: IMAGE_eventing-controller
-      image: gcr.io/knative-nightly/knative.dev/eventing/cmd/controller@sha256:4c2c31c9224b967f5e65765fd6e2660ddf91341c8a2d3975f33c674cb0cdc228
+      image: registry.svc.ci.openshift.org/openshift/knative-v0.13.0:knative-eventing-controller
     - name: IMAGE_eventing-webhook
-      image: gcr.io/knative-nightly/knative.dev/eventing/cmd/webhook@sha256:29b683797fea98959c9edc1c5278aa2be9b1b7a681bada57093cd32bbb2146b1
+      image: registry.svc.ci.openshift.org/openshift/knative-v0.13.0:knative-eventing-webhook
     - name: IMAGE_imc-controller
-      image: gcr.io/knative-nightly/knative.dev/eventing/cmd/in_memory/channel_controller@sha256:2ed0d0a70b0f57ae896a938959e3873fd543220df9ac0340169fedca0e9109df
+      image: registry.svc.ci.openshift.org/openshift/knative-v0.13.0:knative-eventing-channel-controller
     - name: IMAGE_imc-dispatcher
-      image: gcr.io/knative-nightly/knative.dev/eventing/cmd/in_memory/channel_dispatcher@sha256:a266f7a9d49fd6544f32d2593dc5588bb48a03a939b052ed98499e62430b7229
+      image: registry.svc.ci.openshift.org/openshift/knative-v0.13.0:knative-eventing-channel-dispatcher
     - name: knative-operator
       image: $IMAGE_KNATIVE_OPERATOR
     - name: knative-openshift-ingress
