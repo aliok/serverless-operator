@@ -72,7 +72,7 @@ func TestMutate(t *testing.T) {
 		}
 
 		verifyIngress(t, ks, domain)
-		verifyImageOverride(t, ks, image)
+		verifyImageOverride(t, &ks.Spec.Registry, "queue-proxy", image)
 		verifyCerts(t, ks)
 		tc.ha(t, ks)
 
@@ -82,7 +82,7 @@ func TestMutate(t *testing.T) {
 			t.Error(err)
 		}
 		verifyIngress(t, ks, domain)
-		verifyImageOverride(t, ks, image)
+		verifyImageOverride(t, &ks.Spec.Registry, "queue-proxy", image)
 		verifyCerts(t, ks)
 		tc.ha(t, ks)
 
@@ -93,7 +93,8 @@ func TestMutate(t *testing.T) {
 			t.Error(err)
 		}
 		verifyIngress(t, ks, domain)
-		verifyImageOverride(t, ks, image)
+		verifyImageOverride(t, &ks.Spec.Registry, "queue-proxy", image)
+		verifyQueueProxySidecarImageOverride(t, ks, image)
 		verifyCerts(t, ks)
 		tc.ha(t, ks)
 	}
@@ -128,13 +129,10 @@ func verifyIngress(t *testing.T, ks *servingv1alpha1.KnativeServing, expected st
 	}
 }
 
-func verifyImageOverride(t *testing.T, ks *servingv1alpha1.KnativeServing, expected string) {
+func verifyQueueProxySidecarImageOverride(t *testing.T, ks *servingv1alpha1.KnativeServing, expected string) {
 	// Because we overrode the queue image...
 	if ks.Spec.Config["deployment"]["queueSidecarImage"] != expected {
 		t.Errorf("Missing queue image, config=%v", ks.Spec.Config["deployment"])
-	}
-	if ks.Spec.Registry.Override["queue-proxy"] != expected {
-		t.Errorf("Missing queue image, override=%v", ks.Spec.Registry.Override)
 	}
 }
 
