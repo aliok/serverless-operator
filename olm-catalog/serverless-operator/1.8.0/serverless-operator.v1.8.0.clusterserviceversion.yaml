@@ -161,7 +161,7 @@ spec:
           - '*'
           verbs:
           - '*'
-        serviceAccountName: knative-serving-operator
+        serviceAccountName: knative-operator
       - rules:
         - apiGroups:
           - ""
@@ -233,18 +233,18 @@ spec:
           - '*'
         serviceAccountName: knative-openshift-ingress
       deployments:
-      - name: knative-serving-operator
+      - name: knative-operator
         spec:
           replicas: 1
           selector:
             matchLabels:
-              name: knative-serving-operator
+              name: knative-operator
           template:
             metadata:
               annotations:
                 sidecar.istio.io/inject: "false"
               labels:
-                name: knative-serving-operator
+                name: knative-operator
             spec:
               containers:
               - env:
@@ -253,54 +253,20 @@ spec:
                     fieldRef:
                       fieldPath: metadata.name
                 - name: OPERATOR_NAME
-                  value: knative-serving-operator
+                  value: knative-operator
                 - name: SYSTEM_NAMESPACE
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: METRICS_DOMAIN
                   value: knative.dev/serving-operator
-                image: registry.svc.ci.openshift.org/openshift/knative-v0.13.2:knative-serving-operator
+                image: docker.io/aliok/operator-dc8ae372b9fccc267f77b5f159ccd7bd@sha256:f03b779fb2284d354536d4f73ca45f53500b1e2885eef7be8bdb46b031fefeaa
                 imagePullPolicy: IfNotPresent
-                name: knative-serving-operator
+                name: knative-operator
                 ports:
                 - containerPort: 9090
                   name: metrics
-              serviceAccountName: knative-serving-operator
-      - name: knative-eventing-operator
-        spec:
-          replicas: 1
-          selector:
-            matchLabels:
-              name: knative-eventing-operator
-          template:
-            metadata:
-              annotations:
-                sidecar.istio.io/inject: "false"
-              labels:
-                name: knative-eventing-operator
-            spec:
-              containers:
-              - env:
-                - name: POD_NAME
-                  valueFrom:
-                    fieldRef:
-                      fieldPath: metadata.name
-                - name: OPERATOR_NAME
-                  value: knative-eventing-operator
-                - name: SYSTEM_NAMESPACE
-                  valueFrom:
-                    fieldRef:
-                      fieldPath: metadata.namespace
-                - name: METRICS_DOMAIN
-                  value: knative.dev/eventing-operator
-                image: registry.svc.ci.openshift.org/openshift/knative-v0.14.0:knative-eventing-operator
-                imagePullPolicy: IfNotPresent
-                name: knative-eventing-operator
-                ports:
-                - containerPort: 9090
-                  name: metrics
-              serviceAccountName: knative-serving-operator
+              serviceAccountName: knative-operator
       - name: knative-openshift
         spec:
           replicas: 1
@@ -313,7 +279,7 @@ spec:
                 name: knative-openshift
                 app: openshift-admission-server
             spec:
-              serviceAccountName: knative-serving-operator
+              serviceAccountName: knative-operator
               containers:
                 - name: knative-openshift
                   image: $IMAGE_KNATIVE_OPERATOR
@@ -453,8 +419,7 @@ spec:
         - apiGroups:
           - apps
           resourceNames:
-          - knative-serving-operator
-          - knative-eventing-operator
+          - knative-operator
           resources:
           - deployments/finalizers
           verbs:
@@ -465,7 +430,7 @@ spec:
           - '*'
           verbs:
           - '*'
-        serviceAccountName: knative-serving-operator
+        serviceAccountName: knative-operator
     strategy: deployment
   installModes:
   - supported: false
@@ -512,14 +477,12 @@ spec:
       image: registry.svc.ci.openshift.org/openshift/knative-v0.13.2:kourier
     - name: IMAGE_3scale-kourier-gateway
       image: docker.io/maistra/proxyv2-ubi8:1.0.8
-    - name: knative-serving-operator
-      image: registry.svc.ci.openshift.org/openshift/knative-v0.13.2:knative-serving-operator
+    - name: upstream-knative-operator
+      image: docker.io/aliok/operator-dc8ae372b9fccc267f77b5f159ccd7bd@sha256:f03b779fb2284d354536d4f73ca45f53500b1e2885eef7be8bdb46b031fefeaa
     - name: knative-operator
       image: $IMAGE_KNATIVE_OPERATOR
     - name: knative-openshift-ingress
       image: $IMAGE_KNATIVE_OPENSHIFT_INGRESS
-    - name: knative-eventing-operator
-      image: registry.svc.ci.openshift.org/openshift/knative-v0.14.0:knative-eventing-operator
     - name: IMAGE_eventing-controller_eventing-controller
       image: registry.svc.ci.openshift.org/openshift/knative-v0.14.0:knative-eventing-controller
     - name: IMAGE_eventing-webhook_eventing-webhook

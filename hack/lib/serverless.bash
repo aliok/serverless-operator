@@ -183,7 +183,7 @@ function teardown_serverless {
   logger.success 'Serverless has been uninstalled.'
 }
 
-# Enable debug log on knative-serving-operator
+# Enable debug log on upstream knative-operator
 function enable_debug_log {
 cat <<-EOF | oc apply -f -
 apiVersion: v1
