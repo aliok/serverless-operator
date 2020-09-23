@@ -410,7 +410,6 @@
     "pkg/leader",
     "pkg/log/zap",
     "pkg/metrics",
-    "pkg/predicate",
     "pkg/restmapper",
     "version",
   ]
@@ -661,14 +660,6 @@
   revision = "ed542cd5b28ad1b474f8ff7ca112cad2c3ac2dc8"
 
 [[projects]]
-  digest = "1:79c5b7c79609e7e2d0c5a6509cc5894bb8ee9c2ca6e741214f8aa4317beeea59"
-  name = "gomodules.xyz/jsonpatch"
-  packages = ["v2"]
-  pruneopts = "NT"
-  revision = "1c2a0262323edc27502942d9727c95646b1c3cbe"
-  version = "v2.1.0"
-
-[[projects]]
   digest = "1:ef33a89dbeefa3d834fff6b9e0b342311d4bf1a90cbe9c646e79797940b61c88"
   name = "google.golang.org/appengine"
   packages = [
@@ -891,11 +882,58 @@
   revision = "b40b2a5939e43f7ffe0028ad67586b7ce50bb675"
 
 [[projects]]
+  digest = "1:0c605ad3b085ebdf12a156071ab0bac82defd5013ff9a82e20866a90fb1b0a2b"
+  name = "k8s.io/code-generator"
+  packages = [
+    ".",
+    "cmd/client-gen",
+    "cmd/client-gen/args",
+    "cmd/client-gen/generators",
+    "cmd/client-gen/generators/fake",
+    "cmd/client-gen/generators/scheme",
+    "cmd/client-gen/generators/util",
+    "cmd/client-gen/path",
+    "cmd/client-gen/types",
+    "cmd/conversion-gen",
+    "cmd/conversion-gen/args",
+    "cmd/conversion-gen/generators",
+    "cmd/deepcopy-gen",
+    "cmd/deepcopy-gen/args",
+    "cmd/defaulter-gen",
+    "cmd/defaulter-gen/args",
+    "cmd/go-to-protobuf",
+    "cmd/go-to-protobuf/protobuf",
+    "cmd/import-boss",
+    "cmd/informer-gen",
+    "cmd/informer-gen/args",
+    "cmd/informer-gen/generators",
+    "cmd/lister-gen",
+    "cmd/lister-gen/args",
+    "cmd/lister-gen/generators",
+    "cmd/openapi-gen",
+    "cmd/register-gen",
+    "cmd/register-gen/args",
+    "cmd/register-gen/generators",
+    "cmd/set-gen",
+    "pkg/namer",
+    "pkg/util",
+    "third_party/forked/golang/reflect",
+  ]
+  pruneopts = "T"
+  revision = "f186a36abf5c353b917e3c3189f1c06a38866b84"
+  version = "v0.18.9"
+
+[[projects]]
   branch = "master"
   digest = "1:47f6eeee493d9c836b1585d4251ebad7396d42c204d27bfd3efdfd3951d8cbb1"
   name = "k8s.io/gengo"
   packages = [
     "args",
+    "examples/deepcopy-gen/generators",
+    "examples/defaulter-gen/generators",
+    "examples/import-boss/generators",
+    "examples/set-gen/generators",
+    "examples/set-gen/sets",
     "generator",
     "namer",
     "parser",
@@ -916,8 +954,12 @@
   digest = "1:ee35efed55bb1633cbcce158c6c357c1f8ffc71131feddbc4eeb86fa22ea04a2"
   name = "k8s.io/kube-openapi"
   packages = [
+    "cmd/openapi-gen/args",
     "pkg/common",
+    "pkg/generators",
+    "pkg/generators/rules",
     "pkg/util/proto",
+    "pkg/util/sets",
   ]
   pruneopts = "NT"
   revision = "c59034cc13d587f5ef4e85ca0ade0c1866ae8e1d"
@@ -943,20 +985,31 @@
   version = "v0.15.2"
 
 [[projects]]
-  branch = "release-0.14"
-  digest = "1:b5fc33a7242f3d7677e8aadda24a459f2bec2954c1178b1e32e020eb3f6ef993"
+  branch = "master"
+  digest = "1:81d37be8df7ec8101b4feedec1ddfc6a569b9623e0c792f2e9d2b8cac0700a06"
   name = "knative.dev/pkg"
   packages = [
     "apis",
-    "apis/duck",
+    "apis/duck/ducktypes",
     "apis/duck/v1",
+    "codegen/cmd/injection-gen",
+    "codegen/cmd/injection-gen/args",
+    "codegen/cmd/injection-gen/generators",
+    "hack",
     "kmeta",
     "kmp",
     "ptr",
-    "tracker",
   ]
-  pruneopts = "NT"
-  revision = "7b6bb61326aec4bb26625da0d24a1ac3d1122950"
+  pruneopts = "UT"
+  revision = "58028584ae4bd0498bccdb0364abd62334aeb4c2"
+
+[[projects]]
+  branch = "master"
+  digest = "1:737ca05c1a5ea13dd08afb34099fd359621775919c0536f8966d5dc514a58c74"
+  name = "knative.dev/test-infra"
+  packages = ["scripts"]
+  pruneopts = "UT"
+  revision = "4ef663a0aa96101f5db0185d7dff369bc5d38484"
 
 [[projects]]
   digest = "1:21c23272171c749230b32cf3d797db213414dc4bed6abcd457946230d002418f"
@@ -1042,14 +1095,16 @@
     "github.com/operator-framework/operator-sdk/pkg/leader",
     "github.com/operator-framework/operator-sdk/pkg/log/zap",
     "github.com/operator-framework/operator-sdk/pkg/metrics",
-    "github.com/operator-framework/operator-sdk/pkg/predicate",
     "github.com/operator-framework/operator-sdk/pkg/restmapper",
     "github.com/operator-framework/operator-sdk/version",
+    "github.com/prometheus/client_golang/prometheus",
     "github.com/spf13/pflag",
+    "golang.org/x/net/context",
     "k8s.io/api/admission/v1beta1",
     "k8s.io/api/admissionregistration/v1beta1",
     "k8s.io/api/apps/v1",
     "k8s.io/api/core/v1",
+    "k8s.io/api/rbac/v1",
     "k8s.io/apimachinery/pkg/api/equality",
     "k8s.io/apimachinery/pkg/api/errors",
     "k8s.io/apimachinery/pkg/api/meta",
@@ -1064,15 +1119,26 @@
     "k8s.io/client-go/kubernetes/scheme",
     "k8s.io/client-go/plugin/pkg/client/auth",
     "k8s.io/client-go/rest",
+    "k8s.io/code-generator/cmd/client-gen",
+    "k8s.io/code-generator/cmd/conversion-gen",
+    "k8s.io/code-generator/cmd/deepcopy-gen",
+    "k8s.io/code-generator/cmd/defaulter-gen",
+    "k8s.io/code-generator/cmd/informer-gen",
+    "k8s.io/code-generator/cmd/lister-gen",
     "knative.dev/operator/pkg/apis/operator/v1alpha1",
+    "knative.dev/pkg/hack",
     "knative.dev/pkg/ptr",
+    "knative.dev/test-infra/scripts",
     "sigs.k8s.io/controller-runtime/pkg/client",
     "sigs.k8s.io/controller-runtime/pkg/client/config",
     "sigs.k8s.io/controller-runtime/pkg/client/fake",
     "sigs.k8s.io/controller-runtime/pkg/controller",
     "sigs.k8s.io/controller-runtime/pkg/controller/controllerutil",
+    "sigs.k8s.io/controller-runtime/pkg/event",
     "sigs.k8s.io/controller-runtime/pkg/handler",
     "sigs.k8s.io/controller-runtime/pkg/manager",
+    "sigs.k8s.io/controller-runtime/pkg/metrics",
+    "sigs.k8s.io/controller-runtime/pkg/predicate",
     "sigs.k8s.io/controller-runtime/pkg/reconcile",
     "sigs.k8s.io/controller-runtime/pkg/runtime/inject",
     "sigs.k8s.io/controller-runtime/pkg/runtime/log",
