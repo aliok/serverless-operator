@@ -28,9 +28,14 @@ fi
 
 source $(dirname $0)/../vendor/knative.dev/test-infra/scripts/library.sh
 
-CODEGEN_PKG=${CODEGEN_PKG:-$(cd ${REPO_ROOT_DIR}; ls -d -1 ./vendor/k8s.io/code-generator 2>/dev/null || echo ../code-generator)}
+NESTED_REPO_ROOT_DIR=$(dirname $0)/../
 
-KNATIVE_CODEGEN_PKG=${KNATIVE_CODEGEN_PKG:-$(cd ${REPO_ROOT_DIR}; ls -d -1 ./vendor/knative.dev/pkg 2>/dev/null || echo ../pkg)}
+CODEGEN_PKG=${CODEGEN_PKG:-$(cd ${NESTED_REPO_ROOT_DIR}; ls -d -1 ./vendor/k8s.io/code-generator 2>/dev/null || echo ../code-generator)}
+
+KNATIVE_CODEGEN_PKG=${KNATIVE_CODEGEN_PKG:-$(cd ${NESTED_REPO_ROOT_DIR}; ls -d -1 ./vendor/knative.dev/pkg 2>/dev/null || echo ../pkg)}
+
+
+echo "1"
 
 # generate the code with:
 # --output-base    because this script should also be able to run inside the vendor dir of
@@ -38,21 +43,23 @@ KNATIVE_CODEGEN_PKG=${KNATIVE_CODEGEN_PKG:-$(cd ${REPO_ROOT_DIR}; ls -d -1 ./ven
 #                  instead of the $GOPATH directly. For normal projects this can be dropped.
 chmod +x ${CODEGEN_PKG}/generate-groups.sh
 ${CODEGEN_PKG}/generate-groups.sh "deepcopy,client,informer,lister" \
-  knative.dev/operator/pkg/client knative.dev/operator/pkg/apis \
+  github.com/openshift-knative/serverless-operator/knative-operator/pkg/client github.com/openshift-knative/serverless-operator/knative-operator/pkg/apis \
   "operator:v1alpha1" \
-  --go-header-file ${REPO_ROOT_DIR}/hack/boilerplate/boilerplate.go.txt
+  --go-header-file ${NESTED_REPO_ROOT_DIR}/hack/boilerplate/boilerplate.go.txt
+
+echo "2"
 
 chmod +x ${KNATIVE_CODEGEN_PKG}/hack/generate-knative.sh
 ${KNATIVE_CODEGEN_PKG}/hack/generate-knative.sh "injection" \
   knative.dev/operator/pkg/client knative.dev/operator/pkg/apis \
   "operator:v1alpha1" \
-  --go-header-file ${REPO_ROOT_DIR}/hack/boilerplate/boilerplate.go.txt
+  --go-header-file ${NESTED_REPO_ROOT_DIR}/hack/boilerplate/boilerplate.go.txt
 
 # Depends on generate-groups.sh to install bin/deepcopy-gen
 ${GOPATH}/bin/deepcopy-gen \
   -O zz_generated.deepcopy \
-  --go-header-file ${REPO_ROOT_DIR}/hack/boilerplate/boilerplate.go.txt \
+  --go-header-file ${NESTED_REPO_ROOT_DIR}/hack/boilerplate/boilerplate.go.txt \
   -i knative.dev/operator/pkg/apis/operator/v1alpha1
 
 # Make sure our dependencies are up-to-date
-${REPO_ROOT_DIR}/hack/update-deps.sh
+${NESTED_REPO_ROOT_DIR}/hack/update-deps.sh
