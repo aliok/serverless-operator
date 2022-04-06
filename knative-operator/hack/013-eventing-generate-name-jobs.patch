@@ -6,7 +6,7 @@ index 02638809..46876f95 100644
  apiVersion: batch/v1
  kind: Job
  metadata:
--  name: storage-version-migration-kafka-channel-1.1.0
+-  name: storage-version-migration-kafka-channel-1.2.0
 +  generateName: storage-version-migration-kafka-channel-
    namespace: knative-eventing
    labels:
