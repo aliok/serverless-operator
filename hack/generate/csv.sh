@@ -120,7 +120,7 @@ kafka_image "kafka-controller__controller"                       "${KNATIVE_EVEN
 kafka_image "kafka-sink-receiver__kafka-sink-receiver"           "${KNATIVE_EVENTING_KAFKA_BROKER_RECEIVER}"
 kafka_image "kafka-source-dispatcher__kafka-source-dispatcher"   "${KNATIVE_EVENTING_KAFKA_BROKER_DISPATCHER}"
 kafka_image "kafka-webhook-eventing__kafka-webhook-eventing"     "${KNATIVE_EVENTING_KAFKA_BROKER_WEBHOOK_KAFKA}"
-kafka_image "kafka-controller-post-install__post-install"        "${KNATIVE_EVENTING_KAFKA_BROKER_POST_INSTALL}"
+kafka_image "kafka-controller-post-install__post-install"        "aliok/ekb-post-install-1615"
 kafka_image "knative-kafka-storage-version-migrator__migrate"    "${KNATIVE_EVENTING_STORAGE_VERSION_MIGRATION}" # Use eventing core image
 
 image 'KUBE_RBAC_PROXY'          "${rbac_proxy}"
